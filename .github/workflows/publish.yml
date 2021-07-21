@@ -33,5 +33,3 @@ jobs:
             cd ~/github/dashboard_build/
             npm install
             npm run build
-            cp -r ~/github/dashboard_build/dist/ /var/www/dashboard/
-            rm -rf ~/github/dashboard_build/*
