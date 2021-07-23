@@ -22,7 +22,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             cd ${{ secrets.BUILD_PATH }}
+            git reset --hard
             git pull origin
             npm install
             npm run build
-            cp -TRv ${{ secrets.BUILD_PATH }}/dist/ ${{ secrets.DEPLOY_PATH }}
+            cp -av --delete ${{ secrets.BUILD_PATH }}/dist/ ${{ secrets.DEPLOY_PATH }}
