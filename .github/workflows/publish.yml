@@ -26,4 +26,4 @@ jobs:
             git pull origin
             npm install
             npm run build
-            cp -av --delete ${{ secrets.BUILD_PATH }}/dist/ ${{ secrets.DEPLOY_PATH }}
+            rsync -av --delete ${{ secrets.BUILD_PATH }}/dist/ ${{ secrets.DEPLOY_PATH }}
