@@ -3,28 +3,38 @@
     <!-- spigot mc accounts -->
     <div class="card" style="margin-bottom: 10px">
       <header class="card-header">
-        <p class="card-header-title">SpigotMC.org accounts</p>
+        <p class="card-header-title">Linked accounts</p>
         <button class="card-header-icon">
           <b-icon icon="sync" pack="fas" />
         </button>
       </header>
-      <a class="panel-block" style="padding: 14px">
-        <b-dropdown :triggers="['hover']" aria-role="list">
-          <template #trigger>
-            <b-button style="color: black" type="is-ghost">
-              <b-icon pack="fas" icon="wrench" />
-            </b-button>
-          </template>
+      <div v-if="linked != null">
+        <a class="panel-block" style="padding: 14px">
+          <b-dropdown :triggers="['hover']" aria-role="list">
+            <template #trigger>
+              <b-button style="color: black" type="is-ghost">
+                <b-icon pack="fas" icon="wrench" />
+              </b-button>
+            </template>
 
-          <b-dropdown-item aria-role="listitem">
-            <b-icon icon="sync" pack="fas" />Sync / update details
-          </b-dropdown-item>
-          <b-dropdown-item style="color: red" aria-role="listitem">
-            <b-icon icon="trash" pack="fas" />Remove
-          </b-dropdown-item>
-        </b-dropdown>
-        quiquelhappy
+            <b-dropdown-item aria-role="listitem">
+              <b-icon icon="sync" pack="fas" />Sync / update details
+            </b-dropdown-item>
+            <b-dropdown-item style="color: red" aria-role="listitem">
+              <b-icon icon="trash" pack="fas" />Remove
+            </b-dropdown-item>
+          </b-dropdown>
+          quiquelhappy
+        </a>
+      </div>
+      <a
+        v-if="linked == null"
+        class="panel-block"
+        style="padding: 14px; padding-top: 18px; padding-bottom: 18px"
+      >
+        <b-skeleton size="is-large" :count="1" />
       </a>
+
       <a class="panel-block" style="padding: 14px; padding-left: 24px">
         <span class="panel-icon">
           <i class="fas fa-plus" aria-hidden="true"></i>
@@ -41,17 +51,29 @@
         </button>
       </header>
       <div class="card-content">
-        <b-field label-position="on-border" label="Email address">
-          <b-input disabled type="text" value="" />
-        </b-field>
         <b-field label-position="on-border" label="Username">
-          <b-input disabled type="text" value="" />
+          <b-input
+            disabled
+            type="text"
+            :loading="settings.account.native == null"
+            v-model="settings.account.username"
+          />
         </b-field>
-        <b-field label-position="on-border" label="Avatar">
-          <b-input disabled type="text" value="" />
+        <b-field label-position="on-border" label="GitHub">
+          <b-input
+            disabled
+            type="text"
+            :loading="settings.account.native == null"
+            v-model="settings.account.githubId"
+          />
         </b-field>
         <b-field label-position="on-border" label="UID">
-          <b-input disabled type="text" value="" />
+          <b-input
+            disabled
+            type="text"
+            :loading="settings.account.native == null"
+            v-model="settings.account.id"
+          />
         </b-field>
         <b-message type="is-black">
           This information will be updated after you log in again.
@@ -69,6 +91,9 @@
       <div class="card-content">
         <b-field>
           <b-checkbox
+            :indeterminate="commercial == null"
+            :disabled="commercial == null"
+            v-model="commercial"
             >Receive enhanced emails including updates about recommended
             resources, recommended services and social interaction</b-checkbox
           >
@@ -90,18 +115,38 @@
           <b-icon icon="key" pack="fas" />
         </button>
       </header>
-      <a class="panel-block" style="padding: 14px">
-        <b-dropdown :triggers="['hover']" aria-role="list">
-          <template #trigger>
-            <b-button style="color: black" type="is-ghost">
-              <b-icon pack="fas" icon="caret-down" />
-            </b-button>
-          </template>
-          <b-dropdown-item style="color: red" aria-role="listitem">
-            <b-icon icon="sign-out-alt" pack="fas" />Close
-          </b-dropdown-item>
-        </b-dropdown>
-        quiquelhappy
+      <div v-if="sessions != null">
+        <a
+          v-for="session in sessions"
+          :key="session.id"
+          class="panel-block"
+          style="padding: 14px"
+        >
+          <b-dropdown :triggers="['hover']" aria-role="list">
+            <template #trigger>
+              <b-button style="color: black" type="is-ghost">
+                <b-icon pack="fas" icon="caret-down" />
+              </b-button>
+            </template>
+            <b-dropdown-item
+              @click="closeSession(session)"
+              style="color: red"
+              aria-role="listitem"
+            >
+              <b-icon icon="sign-out-alt" pack="fas" />Close
+            </b-dropdown-item>
+          </b-dropdown>
+          <b-tag style="margin-right: 10px">{{
+            session.getCreation().toLocaleString()
+          }}</b-tag>{{ sessionInfo(session) }}
+        </a>
+      </div>
+      <a
+        v-if="sessions == null"
+        class="panel-block"
+        style="padding: 14px; padding-top: 18px; padding-bottom: 18px"
+      >
+        <b-skeleton size="is-large" :count="1" />
       </a>
     </div>
     <!-- privacy details -->
@@ -113,9 +158,6 @@
         </button>
       </header>
       <div class="card-content">
-        <b-field>
-          <b-checkbox> Display ads </b-checkbox>
-        </b-field>
         <b-button
           type="is-text"
           style="transform: translateX(-10px)"
@@ -150,6 +192,7 @@
   </div>
 </template>
 <script>
+import UAParser from "ua-parser-js";
 export default {
   props: ["account"],
   mounted() {
@@ -158,18 +201,110 @@ export default {
   data: () => {
     return {
       loggingIn: false,
+      commercial: null,
+      sessions: null,
+      linked: null,
+      settings: {
+        account: {
+          native: null,
+          id: null,
+          username: null,
+          githubId: null,
+        },
+      },
     };
   },
   watch: {
+    commercial(newv, old) {
+      if (old != null && newv != null) {
+        this.$client
+          .getSession()
+          .getAccount()
+          .commercialSubscribe(Boolean(newv[0]))
+          .then(() => {
+            this.updateNotifications();
+          });
+      }
+    },
     account(newacc, old) {
       if (old != null && newacc == null) this.checkAccount(newacc);
     },
   },
   methods: {
+    sessionInfo(session) {
+      let userAgent = new UAParser(session.getUserAgent());
+      let device = userAgent.getDevice();
+      let browser = userAgent.getBrowser();
+      let os = userAgent.getOS();
+      let string = "";
+      if (session.getCity() != null) {
+        string += `${session.getCity()}, ${session.getCountry()}. `;
+      }
+      if (device.type != null) {
+        string += `(${device.type})`;
+        if (device.vendor != null) string += ` ${device.vendor}`;
+        if (device.model != null) string += ` ${device.model}`;
+        string += ", ";
+      }
+      if (browser.name != null) {
+        string += `${browser.name}`;
+        if (browser.version != null) string += ` (${browser.version})`;
+        string += ", ";
+      }
+      if (os.name != null) {
+        string += `${os.name}`;
+        if (os.version != null) string += ` ${os.version}`;
+        string += ", ";
+      }
+      if (string.endsWith(", ")) string = string.substr(0, string.length - 2);
+      return string;
+    },
+    closeSession(session) {
+      this.sessions = null;
+      session.close().then(() => {
+        this.updateSessions();
+      });
+    },
+    updateAccount() {
+      this.$client
+        .getSession()
+        .getAccount()
+        .update()
+        .then((acc) => {
+          this.settings.account.native = acc;
+          this.settings.account.id = acc.getId();
+          this.settings.account.githubId = acc.getGithubId();
+          this.settings.account.username = acc.getUsername();
+        });
+    },
+    updateSessions() {
+      this.sessions = null;
+      this.$client
+        .getSession()
+        .getAccount()
+        .getSessions()
+        .then((ses) => {
+          this.sessions = ses;
+        });
+    },
+    updateNotifications() {
+      this.commercial = null;
+      this.$client
+        .getSession()
+        .getAccount()
+        .isCommercialSubscribed()
+        .then((val) => {
+          this.commercial = val;
+        });
+    },
     checkAccount(acc) {
       if (acc == null && !this.loggingIn) {
         this.$emit("checkAccount");
         this.loggingIn = true;
+      } else {
+        this.updateSessions();
+        this.updateAccount();
+        this.updateNotifications();
       }
     },
   },

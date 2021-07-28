@@ -20,7 +20,7 @@
         v-if="$route.path != '/login'"
       >
         <h1 style="font-size: 24px; padding-left: 14px">
-          grif.
+          grifpkg
 
           <b-tooltip
             v-if="account != null"
@@ -31,9 +31,56 @@
             <b-button
               @click="logout"
               type="is-ghost"
-              style="color: black !important"
+              style="
+                color: black !important;
+                padding: 0px;
+                margin-left: 10px;
+                margin-right: 20px;
+              "
               ><b-icon pack="fas" icon="sign-out-alt"></b-icon
             ></b-button>
+          </b-tooltip>
+          <b-tooltip
+            v-if="notifications != null && notifications.length > 0"
+            size="is-large"
+            always
+            :active="notifications != null && notifications.length > 0"
+            position="is-bottom"
+            type="is-white"
+            multilined
+          >
+            <status-indicator pulse status="negative" />
+            <template v-slot:content>
+              <div style="max-height: 500px; overflow-y: auto">
+                <b-notification
+                  v-for="notification in notifications"
+                  :key="notification.id"
+                  :closable="false"
+                  style="text-align: left; margin-bottom: 0px"
+                  type="is-white"
+                >
+                  <b>{{ notification.getSubject() }}</b
+                  ><br />
+                  <p style="margin-bottom: 10px">
+                    <b-tag style="margin-right: 10px">{{
+                      notification.getCreation().toLocaleString()
+                    }}</b-tag>
+                    {{ notification.getText() }}
+                  </p>
+                  <b-button
+                    v-if="notification.getAction() != null"
+                    tag="a"
+                    :href="notification.getAction()"
+                    size="is-small"
+                    expanded
+                    >Learn More</b-button
+                  >
+                </b-notification>
+              </div>
+              <b-button type="is-text" style="margin-top:10px" @click="notifications = []" size="is-small" expanded
+                >Close</b-button
+              >
+            </template>
           </b-tooltip>
         </h1>
         <div>
@@ -62,29 +109,26 @@
         :is-hidden-mobile="true"
         v-if="$route.path != '/login'"
       >
-        <Ad style="float:right" />
+        <Ad style="float: right" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import { StatusIndicator } from "vue-status-indicator";
 import NavLink from "@/components/NavLink";
 import Ad from "@/components/Ad";
 export default {
   components: {
     NavLink,
     Ad,
+    StatusIndicator,
   },
   mounted() {
-    /* checkAccount().then((acc)=>{
-      this.loading = false;
-      this.account = acc;
-      if(this.account==null){
-        this.$router.push({path:'/login'})
-      } else {
-        this.forceRender++;
-      }
-    })*/
+    if (this.$client.isAuthenticated()) {
+      this.account = this.$client.getSession().getAccount();
+      this.getNotifications();
+    }
   },
   watch: {
     isLoading(loading) {
@@ -119,6 +163,16 @@ export default {
         this.$router.push({ path: "/" });
       }
       this.targetPath = null;
+      this.getNotifications();
+    },
+    getNotifications() {
+      this.$client
+        .getSession()
+        .getAccount()
+        .getNotifications()
+        .then((notifications) => {
+          this.notifications = notifications;
+        });
     },
     logout() {
       this.account = null;
@@ -126,6 +180,7 @@ export default {
   },
   data: () => {
     return {
+      notifications: null,
       account: null,
       isLoading: false,
       forceRender: 0,

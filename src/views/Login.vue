@@ -55,9 +55,16 @@
 <script>
 export default {
   props: ["account"],
+  mounted() {
+    if (this.$client.isAuthenticated()) {
+      this.$emit("login", this.$client.getSession().getAccount());
+    }
+  },
   methods: {
     login() {
-      this.$emit("login", {});
+      this.$grifpkg.login().then(() => {
+        this.$emit("login", this.$client.getSession().getAccount());
+      });
     },
   },
 };

@@ -1,5 +1,5 @@
 {
-  "name": "grif",
+  "name": "grifpkg",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,11 +8,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@grifpkg/client": "^1.4.1",
     "buefy": "^0.9.8",
     "core-js": "^3.6.5",
+    "ua-parser-js": "^0.7.28",
     "vue": "^2.6.11",
     "vue-copy-to-clipboard": "^1.0.3",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vue-status-indicator": "^1.2.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
