@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@grifpkg/client": "^1.4.1",
+    "@stripe/stripe-js": "^1.16.0",
     "buefy": "^0.9.8",
     "core-js": "^3.6.5",
+    "country-region-data": "^1.9.0",
     "ua-parser-js": "^0.7.28",
     "vue": "^2.6.11",
     "vue-copy-to-clipboard": "^1.0.3",

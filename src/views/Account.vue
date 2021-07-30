@@ -45,6 +45,28 @@
     <!-- grif account details -->
     <div class="card" style="margin-bottom: 10px">
       <header class="card-header">
+        <p class="card-header-title">Billing details</p>
+        <button class="card-header-icon">
+          <b-icon icon="map" pack="fas" />
+        </button>
+      </header>
+      <div class="card-content">
+        <billing-address />
+      </div>
+    </div>
+    <!-- billing sources details -->
+    <div class="card" style="margin-bottom: 10px">
+      <header class="card-header">
+        <p class="card-header-title">Billing sources</p>
+        <button class="card-header-icon">
+          <b-icon icon="credit-card" pack="fas" />
+        </button>
+      </header>
+      <billing-sources />
+    </div>
+    <!-- grif account details -->
+    <div class="card" style="margin-bottom: 10px">
+      <header class="card-header">
         <p class="card-header-title">Account details</p>
         <button class="card-header-icon">
           <b-icon icon="users-cog" pack="fas" />
@@ -138,7 +160,8 @@
           </b-dropdown>
           <b-tag style="margin-right: 10px">{{
             session.getCreation().toLocaleString()
-          }}</b-tag>{{ sessionInfo(session) }}
+          }}</b-tag
+          >{{ sessionInfo(session) }}
         </a>
       </div>
       <a
@@ -193,7 +216,10 @@
 </template>
 <script>
 import UAParser from "ua-parser-js";
+import BillingAddress from "../components/BillingAddress.vue";
+import BillingSources from "../components/BillingSources.vue";
 export default {
+  components: { BillingAddress, BillingSources },
   props: ["account"],
   mounted() {
     this.checkAccount(this.account);
