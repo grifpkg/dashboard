@@ -85,11 +85,12 @@
         </h1>
         <div>
           <NavLink to="/explore">Explore</NavLink>
-          <NavLink to="/resources">Resources</NavLink>
+          <NavLink to="/install">Install</NavLink>
           <NavLink v-if="account != null" to="/account">Account</NavLink>
           <NavLink v-if="account == null" :to="null" @onClick="checkAccount"
             >Login</NavLink
           >
+          <NavLink to="/resources">Resources</NavLink>
         </div>
       </div>
       <div class="column" style="min-height: 100%">
