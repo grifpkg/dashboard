@@ -265,7 +265,7 @@ import VueScrollTo from "vue-scrollto";
 import { JSONPath } from "jsonpath-plus";
 import { resource } from "@grifpkg/client";
 export default {
-  props: ["resourceId"],
+  props: ["resourceId", "account"],
   data: () => {
     return {
       validURLChecking: false,
@@ -299,11 +299,19 @@ export default {
     };
   },
   mounted() {
-    if (this.resourceId != null) {
-      this.loadResource();
-    }
+    this.checkAccount(this.account);
   },
   methods: {
+    checkAccount(acc) {
+      if (acc == null && !this.loggingIn) {
+        this.$emit("checkAccount");
+        this.loggingIn = true;
+      } else {
+        if (this.resourceId != null) {
+          this.loadResource();
+        }
+      }
+    },
     submit() {
       let main = this;
       switch (this.targetType) {

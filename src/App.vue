@@ -12,7 +12,7 @@
     <b-navbar class="is-hidden-tablet" v-if="$route.path != '/login'">
       <template #brand>
         <b-navbar-item>
-          <h1 style="font-size: 20px; color:black">grifpkg</h1>
+          <h1 style="font-size: 20px; color: black">grifpkg</h1>
         </b-navbar-item>
       </template>
       <template #start>
@@ -122,20 +122,20 @@
         </div>
       </div>
       <div
-        class="column is-three-fifths is-full-mobile"
+        :class="`column ${
+          $route.path != '/login' ? 'is-three-fifths' : 'is-full'
+        } is-full-mobile`"
         style="min-height: 100%"
       >
-        <div>
-          <transition mode="out-in" name="scale">
-            <router-view
-              :account="account"
-              v-if="!isLoading"
-              @login="login"
-              @checkAccount="checkAccount"
-              :key="forceRender"
-            />
-          </transition>
-        </div>
+        <transition mode="out-in" name="scale">
+          <router-view
+            :account="account"
+            v-if="!isLoading"
+            @login="login"
+            @checkAccount="checkAccount"
+            :key="forceRender"
+          />
+        </transition>
         <div v-if="$route.path != '/login'" style="height: 10px"></div>
       </div>
       <div
