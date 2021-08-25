@@ -6,6 +6,12 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', redirect: '/explore' },
   {
+    path: '/suggest/:resourceId?',
+    name: 'suggest',
+    props: true,
+    component: () => import(/* webpackChunkName: "about" */ '../views/Suggest.vue')
+  },
+  {
     path: '/explore',
     name: 'explore',
     component: () => import(/* webpackChunkName: "about" */ '../views/Explore.vue')
