@@ -1,14 +1,30 @@
 import Vue from 'vue'
+import VueHighlightJS from 'vue-highlight.js';
+import json from 'highlight.js/lib/languages/json';
+import 'highlight.js/styles/default.css';
+
 import Buefy from 'buefy'
 import grifpkg from '@grifpkg/client'
 import { loadStripe } from '@stripe/stripe-js/pure';
 import 'buefy/dist/buefy.css'
+import Style from './components/Style.scss'
+import animations from 'vue-animate-transitions'
 
 import App from './App.vue'
 import router from './router'
 
-let stripe = null;
 Vue.use(Buefy)
+Vue.use(Style)
+Vue.use(animations)
+Vue.use(VueHighlightJS, {
+    // Register only languages that you want
+    languages: {
+        json,
+    }
+});
+
+let stripe = null;
+
 Vue.config.productionTip = false
 Vue.prototype.$grifpkg = grifpkg;
 Vue.prototype.$client = new grifpkg();
