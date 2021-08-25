@@ -9,14 +9,37 @@
       v-model="isLoading"
       :can-cancel="false"
     ></b-loading>
-
+    <b-navbar class="is-hidden-tablet" v-if="$route.path != '/login'">
+      <template #brand>
+        <b-navbar-item>
+          <h1 style="font-size: 20px; color:black">grifpkg</h1>
+        </b-navbar-item>
+      </template>
+      <template #start>
+        <b-navbar-item tag="router-link" to="/explore"> Explore </b-navbar-item>
+        <b-navbar-item tag="router-link" to="/install"> Install </b-navbar-item>
+        <b-navbar-item tag="router-link" v-if="account != null" to="/account">
+          Account
+        </b-navbar-item>
+        <b-navbar-item
+          tag="router-link"
+          v-if="account == null"
+          @click="checkAccount"
+          to=""
+        >
+          Login
+        </b-navbar-item>
+        <b-navbar-item tag="router-link" to="/resources">
+          Resources
+        </b-navbar-item>
+      </template>
+    </b-navbar>
     <div
       class="columns"
-      style="height: 100%; padding-top: 10px; padding-bottom: 10px"
+      style="height: 100%; padding-top: 10px; padding-bottom: 10px; margin: 0px"
     >
       <div
-        class="column is-one-fifth"
-        :is-hidden-mobile="true"
+        class="column is-one-fifth is-hidden-mobile"
         v-if="$route.path != '/login'"
       >
         <h1 style="font-size: 24px; padding-left: 14px">
@@ -77,7 +100,12 @@
                   >
                 </b-notification>
               </div>
-              <b-button type="is-text" style="margin-top:10px" @click="notifications = []" size="is-small" expanded
+              <b-button
+                type="is-text"
+                style="margin-top: 10px"
+                @click="notifications = []"
+                size="is-small"
+                expanded
                 >Close</b-button
               >
             </template>
@@ -93,24 +121,28 @@
           <NavLink to="/resources">Resources</NavLink>
         </div>
       </div>
-      <div class="column" style="min-height: 100%">
-        <transition mode="out-in" name="scale">
-          <router-view
-            :account="account"
-            v-if="!isLoading"
-            @login="login"
-            @checkAccount="checkAccount"
-            :key="forceRender"
-          />
-        </transition>
+      <div
+        class="column is-three-fifths is-full-mobile"
+        style="min-height: 100%"
+      >
+        <div>
+          <transition mode="out-in" name="scale">
+            <router-view
+              :account="account"
+              v-if="!isLoading"
+              @login="login"
+              @checkAccount="checkAccount"
+              :key="forceRender"
+            />
+          </transition>
+        </div>
         <div v-if="$route.path != '/login'" style="height: 10px"></div>
       </div>
       <div
-        class="column is-one-fifth"
-        :is-hidden-mobile="true"
+        class="column is-one-fifth is-hidden-mobile-only"
         v-if="$route.path != '/login'"
       >
-        <Ad style="float: right" />
+        <Ad class="is-hidden-mobile-only" style="float: right" />
       </div>
     </div>
   </div>
@@ -191,6 +223,12 @@ export default {
 };
 </script>
 <style>
+.animated {
+  -webkit-animation-duration: 0.2s !important;
+  animation-duration: 0.2s !important;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
 .scale-enter-active,
 .scale-leave-active {
   transition: all 0.1s ease;
