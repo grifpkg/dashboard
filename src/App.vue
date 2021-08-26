@@ -142,7 +142,11 @@
         class="column is-one-fifth is-hidden-mobile-only"
         v-if="$route.path != '/login'"
       >
-        <Ad class="is-hidden-mobile-only" style="float: right" />
+        <Adsense
+          data-ad-client="ca-pub-7638007623692967"
+          data-ad-slot="1234567890"
+        >
+        </Adsense>
       </div>
     </div>
   </div>
@@ -150,11 +154,9 @@
 <script>
 import { StatusIndicator } from "vue-status-indicator";
 import NavLink from "@/components/NavLink";
-import Ad from "@/components/Ad";
 export default {
   components: {
     NavLink,
-    Ad,
     StatusIndicator,
   },
   mounted() {
