@@ -144,7 +144,9 @@
       >
         <Adsense
           data-ad-client="ca-pub-7638007623692967"
-          data-ad-slot="1234567890"
+          data-ad-slot="1828877093"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
         >
         </Adsense>
       </div>
