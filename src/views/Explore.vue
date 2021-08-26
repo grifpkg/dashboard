@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card" style="overflow: hidden">
-      <b-carousel :indicator="false">
+      <b-carousel :pause-info="false" :indicator="false">
         <b-carousel-item v-for="element in featured" :key="element.name">
           <section :class="`hero is-black ${element.color}`">
             <div

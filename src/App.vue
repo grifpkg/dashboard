@@ -140,16 +140,26 @@
       </div>
       <div
         class="column is-one-fifth is-hidden-mobile-only"
-        style="padding-right: 0px; padding-top: 12px"
+        style="padding: 0px; padding-top: 12px"
         v-if="$route.path != '/login'"
       >
-        <Adsense
-          data-ad-client="ca-pub-7638007623692967"
-          data-ad-slot="1828877093"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        >
-        </Adsense>
+        <div class="is-hidden-touch">
+          <Adsense
+            data-ad-client="ca-pub-7638007623692967"
+            data-ad-slot="1828877093"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          >
+          </Adsense>
+        </div>
+        <div class="is-hidden-desktop is-hidden-mobile-only">
+          <Adsense
+            data-ad-client="ca-pub-7638007623692967"
+            style="display: inline-block; width: 160px; height: 600px"
+            data-ad-slot="7573186033"
+          >
+          </Adsense>
+        </div>
       </div>
     </div>
   </div>
