@@ -140,7 +140,7 @@
       </div>
       <div
         class="column is-one-fifth is-hidden-mobile-only"
-        style="padding: 0px; padding-top: 12px"
+        style="padding-right: 0px; padding-top: 12px"
         v-if="$route.path != '/login'"
       >
         <Adsense
