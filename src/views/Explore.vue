@@ -19,16 +19,91 @@
         </b-carousel-item>
       </b-carousel>
     </div>
+    <div>
+      <Resource
+        v-for="resource in resources"
+        :key="resource.id"
+        :resource="resource"
+      />
+    </div>
+
+    <infinite-loading
+      v-if="!loadingResources && page < 9"
+      @infinite="loadResources"
+    >
+    </infinite-loading>
+    <transition name="fadeIn">
+      <div
+        style="padding-top: 32px; padding-bottom: 32px"
+        v-if="loadingResources"
+      >
+        <b-progress></b-progress>
+      </div>
+    </transition>
+    <transition name="fadeIn">
+      <div v-if="page >= 9" style="padding-top: 32px; padding-bottom: 32px">
+        <center>
+          <p>
+            If you want to explore more resources, look for them using the CLI!
+          </p>
+          <b-button
+            icon-left="file-download"
+            icon-pack="fas"
+            style="margin-top: 12px"
+            tag="router-link"
+            to="/install"
+            type="is-black"
+          >
+            Install CLI
+          </b-button>
+        </center>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
 import CopyBar from "@/components/CopyBar";
+import { Resource } from "@grifpkg/client";
+import ResourceElement from "@/components/Resource";
+import InfiniteLoading from "vue-infinite-loading";
 export default {
   components: {
     CopyBar,
+    InfiniteLoading,
+    Resource: ResourceElement,
+  },
+  mounted() {
+    this.loadResources();
+  },
+  methods: {
+    loadResources($state) {
+      if (!this.loadingResources && this.page < 9) {
+        let main = this;
+        this.loadingResources = true;
+        this.page++;
+        Resource.getPopular(this.page)
+          .then((resources) => {
+            resources.forEach((resource) => {
+              main.resources.push(resource);
+            });
+          })
+          .finally(() => {
+            main.loadingResources = false;
+            $state.loaded();
+          })
+          .catch(() => {
+            // ignore
+          });
+      } else if (!this.loadingResources && this.page >= 9) {
+        $state.complete();
+      }
+    },
   },
   data: () => {
     return {
+      resources: [],
+      page: 0,
+      loadingResources: false,
       featured: [
         {
           name: "purecore",

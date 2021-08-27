@@ -263,7 +263,7 @@
 <script>
 import VueScrollTo from "vue-scrollto";
 import { JSONPath } from "jsonpath-plus";
-import { resource } from "@grifpkg/client";
+import { Resource } from "@grifpkg/client";
 export default {
   props: ["resourceId", "account"],
   data: () => {
@@ -391,7 +391,7 @@ export default {
       this.loadingResource = true;
       this.resourceError = null;
       let main = this;
-      resource
+      Resource
         .fromId(this.resourceId)
         .then((resource) => {
           main.resource = resource;

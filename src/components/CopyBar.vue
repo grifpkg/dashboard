@@ -4,6 +4,7 @@
     <p class="control">
       <CopyToClipboard :text="`grif install ${value}`">
         <b-button
+          @click="showMessage()"
           :class="`button ${dark != null && dark ? 'is-dark' : 'is-light'}`"
         >
           <b-icon pack="fas" icon="copy"></b-icon
@@ -18,6 +19,11 @@ export default {
   props: ["value", "dark"],
   components: {
     CopyToClipboard,
+  },
+  methods: {
+    showMessage() {
+      this.$buefy.toast.open("copied " + this.value);
+    },
   },
 };
 </script>
