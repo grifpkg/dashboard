@@ -13,6 +13,14 @@ import animations from 'vue-animate-transitions'
 import App from './App.vue'
 import router from './router'
 
+import Ads from 'vue-google-adsense'
+
+Vue.use(require('vue-script2'))
+
+Vue.use(Ads.Adsense)
+Vue.use(Ads.InArticleAdsense)
+Vue.use(Ads.InFeedAdsense)
+
 Vue.use(Buefy)
 Vue.use(Style)
 Vue.use(animations)
