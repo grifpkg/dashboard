@@ -55,7 +55,7 @@
             suggest a "whole resource" pointing to the latest downloadable
             file</b
           >
-          if the latest file can be built onto an url schema
+          if the latest file can be built onto an url schema. Releases with the icon <b-icon icon="tasks" pack="fas"/> have some suggested URLs already.
         </b-message>
       </div>
     </transition>
@@ -72,6 +72,7 @@
             <b-button
               v-if="release.hasSuggestions != null"
               icon-right="tasks"
+              icon-pack="fas"
               @click="targetRelease = release"
               expanded
               :type="`is-light ${targetRelease == release ? 'is-primary' : ''}`"
