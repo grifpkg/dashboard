@@ -14,6 +14,8 @@ import App from './App.vue'
 import router from './router'
 
 import Ads from 'vue-google-adsense'
+import infiniteScroll from 'vue-infinite-scroll'
+Vue.use(infiniteScroll)
 
 Vue.use(require('vue-script2'))
 
@@ -25,10 +27,10 @@ Vue.use(Buefy)
 Vue.use(Style)
 Vue.use(animations)
 Vue.use(VueHighlightJS, {
-    // Register only languages that you want
-    languages: {
-        json,
-    }
+  // Register only languages that you want
+  languages: {
+    json,
+  }
 });
 
 let stripe = null;

@@ -36,7 +36,9 @@
     </b-navbar>
     <div
       class="columns"
-      style="height: 100%; padding-top: 10px; padding-bottom: 10px; margin: 0px"
+      :style="`${
+        $route.path != '/login' ? '' : 'height: 100%;'
+      } padding-top: 10px; padding-bottom: 10px; margin: 0px`"
     >
       <div
         class="column is-one-fifth is-hidden-mobile"
@@ -139,7 +141,7 @@
         <div v-if="$route.path != '/login'" style="height: 10px"></div>
       </div>
       <div
-        class="column is-one-fifth is-hidden-mobile-only"
+        class="column is-one-fifth is-hidden-mobile"
         style="padding: 0px; padding-top: 12px"
         v-if="$route.path != '/login'"
       >
@@ -152,7 +154,7 @@
           >
           </Adsense>
         </div>
-        <div class="is-hidden-desktop is-hidden-mobile-only">
+        <div class="is-hidden-desktop is-hidden-mobile">
           <Adsense
             data-ad-client="ca-pub-7638007623692967"
             style="display: inline-block; width: 160px; height: 600px"
@@ -254,5 +256,12 @@ export default {
 .scale-leave-active {
   opacity: 0;
   transform: scale(0.975);
+}
+</style>
+<style lang="css">
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

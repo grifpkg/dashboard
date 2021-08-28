@@ -68,15 +68,17 @@
           {{ releaseError }}
         </b-message>
         <div style="max-height: 500px; overflow-y: auto">
-          <b-button
-            v-for="release in availableReleases"
-            :key="release.id"
-            @click="targetRelease = release"
-            expanded
-            :type="`is-light ${targetRelease == release ? 'is-primary' : ''}`"
-            style="margin-bottom: 5px"
-            >{{ release.version }}</b-button
-          >
+          <div v-for="release in availableReleases" :key="release.id">
+            <b-button
+              v-if="release.hasSuggestions != null"
+              icon-right="tasks"
+              @click="targetRelease = release"
+              expanded
+              :type="`is-light ${targetRelease == release ? 'is-primary' : ''}`"
+              style="margin-bottom: 5px"
+              >{{ release.version }}</b-button
+            >
+          </div>
         </div>
       </div>
     </transition>
@@ -391,8 +393,7 @@ export default {
       this.loadingResource = true;
       this.resourceError = null;
       let main = this;
-      Resource
-        .fromId(this.resourceId)
+      Resource.fromId(this.resourceId)
         .then((resource) => {
           main.resource = resource;
           main.loadLatestRelease();

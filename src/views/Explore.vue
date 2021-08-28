@@ -1,45 +1,52 @@
 <template>
   <div>
-    <div class="card" style="overflow: hidden">
-      <b-carousel :pause-info="false" :indicator="false">
-        <b-carousel-item v-for="element in featured" :key="element.name">
-          <section :class="`hero is-black ${element.color}`">
-            <div
-              class="hero-body"
-              style="padding-left: 70px; padding-right: 70px"
-            >
-              <h1 class="title">{{ element.name }}</h1>
-              <p style="margin-bottom: 8px" class="subtitle">
-                {{ element.description }}
-              </p>
+    <transition name="fadeIn">
+      <div v-if="resources.length >= 5" class="card" style="overflow: hidden">
+        <b-carousel :pause-info="false" :indicator="false">
+          <b-carousel-item v-for="i in 5" :key="i">
+            <section :class="`hero is-primary`">
+              <div
+                class="hero-body"
+                style="padding-left: 70px; padding-right: 70px"
+              >
+                <h1 class="title ellipsis">{{ resources[i-1].name }}</h1>
+                <p style="margin-bottom: 8px" class="subtitle ellipsis">
+                  {{ resources[i-1].description }}
+                </p>
 
-              <CopyBar :value="element.name" :dark="element.dark" />
-            </div>
-          </section>
-        </b-carousel-item>
-      </b-carousel>
-    </div>
-    <div>
+                <CopyBar :value="resources[i-1].name" :dark="false" />
+              </div>
+            </section>
+          </b-carousel-item>
+        </b-carousel>
+      </div>
+    </transition>
+    <div
+      v-infinite-scroll="loadResources"
+      infinite-scroll-disabled="loadingResources"
+      infinite-scroll-distance="150"
+    >
       <Resource
         v-for="resource in resources"
         :key="resource.id"
         :resource="resource"
       />
     </div>
-
-    <infinite-loading
-      v-if="!loadingResources && page < 9"
-      @infinite="loadResources"
-    >
-    </infinite-loading>
-    <transition name="fadeIn">
+    <div v-if="loadingResources">
       <div
-        style="padding-top: 32px; padding-bottom: 32px"
-        v-if="loadingResources"
+        v-for="i in 10"
+        :key="i"
+        class="box"
+        style="
+          margin: 0px;
+          margin-top: 10px;
+          padding-top: 28px;
+          padding-bottom: 28px;
+        "
       >
-        <b-progress></b-progress>
+        <b-skeleton animated></b-skeleton>
       </div>
-    </transition>
+    </div>
     <transition name="fadeIn">
       <div v-if="page >= 9" style="padding-top: 32px; padding-bottom: 32px">
         <center>
@@ -65,11 +72,9 @@
 import CopyBar from "@/components/CopyBar";
 import { Resource } from "@grifpkg/client";
 import ResourceElement from "@/components/Resource";
-import InfiniteLoading from "vue-infinite-loading";
 export default {
   components: {
     CopyBar,
-    InfiniteLoading,
     Resource: ResourceElement,
   },
   mounted() {

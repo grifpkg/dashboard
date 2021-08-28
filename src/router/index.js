@@ -12,6 +12,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Suggest.vue')
   },
   {
+    path: '/resource/:resourceId?',
+    name: 'resource',
+    props: true,
+    component: () => import(/* webpackChunkName: "about" */ '../views/Resource.vue')
+  },
+  {
     path: '/explore',
     name: 'explore',
     component: () => import(/* webpackChunkName: "about" */ '../views/Explore.vue')
