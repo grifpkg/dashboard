@@ -1,8 +1,14 @@
 <template>
-  <div :style="$route.path == '/login' ? 'height:100%' : null">
+  <div
+    :style="
+      $route.path != '/login'
+        ? 'min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between;'
+        : 'height:100%'
+    "
+  >
     <div
       id="app"
-      style="height: 100%"
+      style="height: 100%; width: 100%"
       :class="$route.path != '/login' ? 'container' : ''"
     >
       <b-loading
