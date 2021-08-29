@@ -71,7 +71,7 @@
           <div v-for="release in availableReleases" :key="release.id">
             <b-button
               v-if="release.hasSuggestions != null"
-              icon-right="tasks"
+              :icon-right="release.hasSuggestions ? 'tasks' : null"
               icon-pack="fas"
               @click="targetRelease = release"
               expanded

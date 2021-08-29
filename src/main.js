@@ -15,6 +15,26 @@ import router from './router'
 
 import Ads from 'vue-google-adsense'
 import infiniteScroll from 'vue-infinite-scroll'
+
+// icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(fab)
+library.add(fas)
+library.add(far)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.use(Buefy, {
+  defaultIconComponent: FontAwesomeIcon,
+  defaultIconPack: 'far',
+})
+
+// --
+
 Vue.use(infiniteScroll)
 
 Vue.use(require('vue-script2'))
@@ -23,7 +43,7 @@ Vue.use(Ads.Adsense)
 Vue.use(Ads.InArticleAdsense)
 Vue.use(Ads.InFeedAdsense)
 
-Vue.use(Buefy)
+
 Vue.use(Style)
 Vue.use(animations)
 Vue.use(VueHighlightJS, {

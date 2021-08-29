@@ -13,15 +13,15 @@
         }}
       </p>
 
-      <div style="max-width: 500px">
+      <div style="max-width: 500px; overflow-x: visible">
         <b-tabs
+          style="margin-bottom: 0px"
           expanded
           v-if="latestRelease.date != null"
           v-model="selectedTab"
           position="is-centered"
-          type="is-toggle"
         >
-          <b-tab-item label="Windows" icon="windows">
+          <b-tab-item icon-pack="fab" label="Windows" icon="windows">
             <div>
               <a
                 download
@@ -53,7 +53,7 @@
               >
             </div>
           </b-tab-item>
-          <b-tab-item label="Linux" icon="linux">
+          <b-tab-item icon-pack="fab" label="Linux" icon="linux">
             <a
               download
               @click="selected = 'grif_linux_x64'"
@@ -94,7 +94,7 @@
               </b-button></a
             >
           </b-tab-item>
-          <b-tab-item label="MacOS" icon="apple">
+          <b-tab-item icon-pack="fab" label="MacOS" icon="apple">
             <a
               download
               @click="selected = 'grif_macos_x64'"
@@ -122,7 +122,7 @@
               </b-button></a
             >
           </b-tab-item>
-          <b-tab-item label="OpenBSD" icon="fish">
+          <b-tab-item icon-pack="fab" label="FreeBSD" icon="freebsd">
             <a
               download
               @click="selected = 'grif_openbsd_x64'"
@@ -170,7 +170,7 @@
         >
           <b-message v-if="selected.endsWith('.exe')" type="is-black">
             <ul>
-              <li>Execute <b-icon icon="windows"></b-icon> + R</li>
+              <li>Execute <b-icon pack="fab" icon="windows" /> + R</li>
               <li>Enter "cmd"</li>
               <li>Use <code>cd [your-downloads-folder]</code></li>
               <li>
@@ -184,9 +184,84 @@
               <li>Open the terminal</li>
               <li>Use <code>cd [your-downloads-folder]</code></li>
               <li>
+                Use <code>chmod +x ./{{ selected }}</code>
+              </li>
+              <li>
                 Use <code>sudo ./{{ selected }} upgrade</code>
               </li>
               <li>Use <code>grif --help</code></li>
+            </ul>
+          </b-message>
+        </div>
+        <div
+          v-if="selected == null && selectedTab > 0"
+          style="text-align: left; margin-bottom: 10px"
+        >
+          <b-message
+            type="is-black"
+            style="overflow: auto; white-space: nowrap"
+          >
+            <ul v-if="selectedTab == 1">
+              <li>
+                x64
+                <code
+                  >wget {{ latestRelease.files["grif_linux_x64"] }} -O grif &&
+                  chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
+              <li>
+                x32
+                <code
+                  >wget {{ latestRelease.files["grif_linux_x64_arm"] }} -O grif
+                  && chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
+              <li>
+                ARM
+                <code
+                  >wget {{ latestRelease.files["grif_linux_x64_arm"] }} -O grif
+                  && chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
+            </ul>
+            <ul v-if="selectedTab == 2">
+              <li>
+                x64
+                <code
+                  >wget {{ latestRelease.files["grif_macos_x64"] }} -O grif &&
+                  chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
+              <li>
+                ARM
+                <code
+                  >wget {{ latestRelease.files["grif_macos_x64_arm"] }} -O grif
+                  && chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
+            </ul>
+            <ul v-if="selectedTab == 3">
+              <li>
+                x64
+                <code
+                  >wget {{ latestRelease.files["grif_openbsd_x64"] }} -O grif &&
+                  chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
+              <li>
+                x32
+                <code
+                  >wget {{ latestRelease.files["grif_openbsd_x64_arm"] }} -O grif
+                  && chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
+              <li>
+                ARM
+                <code
+                  >wget {{ latestRelease.files["grif_openbsd_x64_arm"] }} -O grif
+                  && chmod +x ./grif && sudo ./grif upgrade</code
+                >
+              </li>
             </ul>
           </b-message>
         </div>
