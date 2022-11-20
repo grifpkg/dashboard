@@ -29,7 +29,7 @@ export default {
     }),
     methods: {
         async copy() {
-            this.$copyText(this.cmd)
+            //this.$copyText(this.cmd)
             if (!this.copied && !this.justCopied) {
                 this.justCopied = true
                 await new Promise(resolve => setTimeout(resolve, 300));

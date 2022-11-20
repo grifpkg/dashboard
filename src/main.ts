@@ -8,7 +8,7 @@
 import App from './App.vue'
 
 import router from "./router/index.js"
-import VueClipboard from 'vue-clipboard2'
+//import VueClipboard from 'vue-clipboard2'
 
 // Composables
 import { createApp } from 'vue'
@@ -25,5 +25,5 @@ registerPlugins(app)
 
 app
     .use(router)
-    .use(VueClipboard)
+    //.use(VueClipboard)
     .mount('#app')
