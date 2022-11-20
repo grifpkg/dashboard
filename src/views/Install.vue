@@ -36,7 +36,7 @@
       </v-list>
     </v-card>
     <div class="text-center">
-      <div class="mt-10 mb-5">
+      <div class="my-5">
         <v-btn
           target="_blank"
           :href="this.url"

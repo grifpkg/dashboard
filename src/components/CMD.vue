@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import copy from "copy-to-clipboard";
 export default {
   props: ["cmd", "loading", "overflow"],
   data: () => ({
@@ -41,7 +42,7 @@ export default {
   }),
   methods: {
     async copy() {
-      //this.$copyText(this.cmd)
+      copy(this.cmd);
       if (!this.copied && !this.justCopied) {
         this.justCopied = true;
         await new Promise((resolve) => setTimeout(resolve, 300));
