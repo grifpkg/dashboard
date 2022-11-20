@@ -31,7 +31,7 @@
                             <h3 class="mt-2">the package manager for game servers</h3>
                         </v-col>
                         <v-col cols="12">
-                            <v-text-field autofocus append-inner-icon="mdi-magnify"
+                            <v-text-field @keyup.enter="$router.push('/search')" autofocus append-inner-icon="mdi-magnify"
                                 placeholder="Search across spigotmc.org, curseforge.com and modrinth.com"
                                 variant="outlined" />
                         </v-col>

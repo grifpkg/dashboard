@@ -1,12 +1,7 @@
 <template>
   <v-card style="overflow: visible" class="d-flex">
     <v-sheet color="primary" style="flex: 0 0 1" class="d-flex align-center">
-      <v-btn :loading="loading" @click="copy()" class="fill-height" icon>
-        <v-scroll-x-reverse-transition>
-          <v-icon v-if="copied">mdi-check</v-icon>
-          <v-icon v-else-if="!justCopied">mdi-content-copy</v-icon>
-        </v-scroll-x-reverse-transition>
-      </v-btn>
+      <copy :loading="loading" :value="cmd" />
     </v-sheet>
     <div style="flex: 0 0 1" class="d-flex align-center">
       <slot name="prepend" />
@@ -33,26 +28,11 @@
 </template>
 
 <script>
-import copy from "copy-to-clipboard";
+import Copy from "./Copy.vue";
 export default {
-  props: ["cmd", "loading", "overflow"],
-  data: () => ({
-    copied: false,
-    justCopied: false,
-  }),
-  methods: {
-    async copy() {
-      copy(this.cmd);
-      if (!this.copied && !this.justCopied) {
-        this.justCopied = true;
-        await new Promise((resolve) => setTimeout(resolve, 300));
-        this.copied = true;
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        this.copied = false;
-        await new Promise((resolve) => setTimeout(resolve, 300));
-        this.justCopied = false;
-      }
-    },
+  components: {
+    Copy,
   },
+  props: ["cmd", "loading", "overflow"],
 };
 </script>
