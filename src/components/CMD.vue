@@ -8,6 +8,9 @@
                 </v-scroll-x-reverse-transition>
             </v-btn>
         </v-sheet>
+        <div style="flex: 0 0 1;" class="d-flex align-center">
+            <slot name="prepend"/>
+        </div>
         <div style="flex: 1 1 100%">
             <v-sheet color="black" class="py-2 text-left"
                 :style='`position:relative;overflow-x:${overflow != null ? "scroll" : "hidden"}`'>
