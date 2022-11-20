@@ -1,12 +1,14 @@
-import { createRouter, createWebHashHistory, } from "vue-router"
+import { createRouter, createWebHistory, } from "vue-router"
+import Home from "../views/Home.vue"
+import Install from "../views/Install.vue"
 
 const routes = [
-    { path: '/', component: import('../views/Home.vue') },
-    { path: '/install', component: import('../views/Install.vue') },
+    { path: '/', component: Home },
+    { path: '/install', component: Install },
 ]
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes,
 })
 
