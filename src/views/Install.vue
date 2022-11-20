@@ -1,351 +1,118 @@
 <template>
-  <div>
-    <center>
-      <h1 style="font-size: 24px; margin-top: 30px">
-        You're about to make your life a whole lot easier
-      </h1>
-      <p style="margin-bottom: 30px">
-        Latest Release:
-        {{
-          latestRelease.date != null
-            ? latestRelease.date.toLocaleString()
-            : "unknown"
-        }}
-      </p>
-
-      <div style="max-width: 500px; overflow-x: visible">
-        <b-tabs
-          style="margin-bottom: 0px"
-          expanded
-          v-if="latestRelease.date != null"
-          v-model="selectedTab"
-          position="is-centered"
-        >
-          <b-tab-item icon-pack="fab" label="Windows" icon="windows">
-            <div>
-              <a
-                download
-                @click="selected = 'grif_windows_x64.exe'"
-                :href="latestRelease.files['grif_windows_x64.exe']"
-              >
-                <b-button
-                  style="margin-bottom: 5px"
-                  expanded
-                  icon-left="download"
-                  type="is-light"
-                >
-                  Download x64
-                </b-button>
-              </a>
-              <a
-                download
-                @click="selected = 'grif_windows_x32.exe'"
-                :href="latestRelease.files['grif_windows_x32.exe']"
-              >
-                <b-button
-                  style="margin-bottom: 5px"
-                  expanded
-                  icon-left="download"
-                  type="is-light"
-                >
-                  Download x32
-                </b-button></a
-              >
+    <v-container>
+        <h1 class="text-center my-10">
+            grifpkg
+            <v-chip label color="primary">CLI</v-chip>
+        </h1>
+        <v-card>
+            <v-sheet color="black">
+                <v-tabs grow color="primary" v-model="os">
+                    <v-tab value="linux">Linux</v-tab>
+                    <v-tab value="windows">Windows</v-tab>
+                    <v-tab value="macos">MacOS</v-tab>
+                </v-tabs>
+            </v-sheet>
+            <v-list>
+                <v-list-item v-for="(step, i) in steps" :key="i">
+                    <template v-slot:prepend>
+                        <v-avatar>
+                            {{ i + 1 }}
+                        </v-avatar>
+                    </template>
+                    <span v-html="step"></span>
+                </v-list-item>
+                <v-list-item>
+                    <template v-slot:prepend>
+                        <v-avatar>
+                            {{ steps.length + 1 }}
+                        </v-avatar>
+                    </template>
+                    <span>Enjoy! Execute
+                        <pre>grif help</pre> from your terminal to get help
+                    </span>
+                </v-list-item>
+            </v-list>
+        </v-card>
+        <div class="text-center">
+            <div class="mt-10 mb-5">
+                <v-btn target="_blank" :href="this.url" v-if="os == 'windows'" :loading="!version" size="large" prepend-icon="mdi-download">
+                    Download {{ version }}
+                </v-btn>
+                <cmd v-else overflow :loading="!version"
+                    :cmd='`wget ${this.url} -O /tmp/grifpkg && chmod +x /tmp/grifpkg && sudo /tmp/grifpkg upgrade`' />
             </div>
-          </b-tab-item>
-          <b-tab-item icon-pack="fab" label="Linux" icon="linux">
-            <a
-              download
-              @click="selected = 'grif_linux_x64'"
-              :href="latestRelease.files['grif_linux_x64']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download x64
-              </b-button></a
-            >
-            <a
-              download
-              @click="selected = 'grif_linux_x32'"
-              :href="latestRelease.files['grif_linux_x32']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download x32
-              </b-button></a
-            >
-            <a
-              download
-              @click="selected = 'grif_linux_x64_arm'"
-              :href="latestRelease.files['grif_linux_x64_arm']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download ARM x64
-              </b-button></a
-            >
-          </b-tab-item>
-          <b-tab-item icon-pack="fab" label="MacOS" icon="apple">
-            <a
-              download
-              @click="selected = 'grif_macos_x64'"
-              :href="latestRelease.files['grif_macos_x64']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download x64
-              </b-button></a
-            >
-            <a
-              download
-              @click="selected = 'grif_macos_x64_arm'"
-              :href="latestRelease.files['grif_macos_x64_arm']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download ARM x64
-              </b-button></a
-            >
-          </b-tab-item>
-          <b-tab-item icon-pack="fab" label="FreeBSD" icon="freebsd">
-            <a
-              download
-              @click="selected = 'grif_openbsd_x64'"
-              :href="latestRelease.files['grif_openbsd_x64']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download x64
-              </b-button></a
-            >
-            <a
-              download
-              @click="selected = 'grif_openbsd_x32'"
-              :href="latestRelease.files['grif_openbsd_x32']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download x32
-              </b-button></a
-            >
-            <a
-              download
-              @click="selected = 'grif_openbsd_x64_arm'"
-              :href="latestRelease.files['grif_openbsd_x64_arm']"
-              ><b-button
-                style="margin-bottom: 5px"
-                expanded
-                icon-left="download"
-                type="is-light"
-              >
-                Download ARM x64
-              </b-button></a
-            >
-          </b-tab-item>
-        </b-tabs>
-        <div
-          v-if="selected != null"
-          style="text-align: left; margin-bottom: 10px"
-        >
-          <b-message v-if="selected.endsWith('.exe')" type="is-black">
-            <ul>
-              <li>Execute <b-icon pack="fab" icon="windows" /> + R</li>
-              <li>Enter "cmd"</li>
-              <li>Use <code>cd [your-downloads-folder]</code></li>
-              <li>
-                Use <code>{{ selected }} upgrade</code>
-              </li>
-              <li>Use <code>grif --help</code></li>
-            </ul>
-          </b-message>
-          <b-message v-if="!selected.endsWith('.exe')" type="is-black">
-            <ul>
-              <li>Open the terminal</li>
-              <li>Use <code>cd [your-downloads-folder]</code></li>
-              <li>
-                Use <code>chmod +x ./{{ selected }}</code>
-              </li>
-              <li>
-                Use <code>sudo ./{{ selected }} upgrade</code>
-              </li>
-              <li>Use <code>grif --help</code></li>
-            </ul>
-          </b-message>
+            <div>
+                <v-btn target="_blank" href="https://nominal.es/discord" variant="text">
+                    Psst! Join our Discord
+                </v-btn>
+            </div>
+            <div class="mt-2">
+                <v-btn v-if="this.version" target="_blank" :href="`https://github.com/grifpkg/cli/releases/tag/${this.version}`" variant="plain">
+                    GitHub
+                </v-btn>
+            </div>
         </div>
-        <div
-          v-if="selected == null && selectedTab > 0"
-          style="text-align: left; margin-bottom: 10px"
-        >
-          <b-message
-            type="is-black"
-            style="overflow: auto; white-space: nowrap"
-          >
-            <ul v-if="selectedTab == 1">
-              <li>
-                x64
-                <code
-                  >wget {{ latestRelease.files["grif_linux_x64"] }} -O grif &&
-                  chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-              <li>
-                x32
-                <code
-                  >wget {{ latestRelease.files["grif_linux_x64_arm"] }} -O grif
-                  && chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-              <li>
-                ARM
-                <code
-                  >wget {{ latestRelease.files["grif_linux_x64_arm"] }} -O grif
-                  && chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-            </ul>
-            <ul v-if="selectedTab == 2">
-              <li>
-                x64
-                <code
-                  >wget {{ latestRelease.files["grif_macos_x64"] }} -O grif &&
-                  chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-              <li>
-                ARM
-                <code
-                  >wget {{ latestRelease.files["grif_macos_x64_arm"] }} -O grif
-                  && chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-            </ul>
-            <ul v-if="selectedTab == 3">
-              <li>
-                x64
-                <code
-                  >wget {{ latestRelease.files["grif_openbsd_x64"] }} -O grif &&
-                  chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-              <li>
-                x32
-                <code
-                  >wget {{ latestRelease.files["grif_openbsd_x64_arm"] }} -O grif
-                  && chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-              <li>
-                ARM
-                <code
-                  >wget {{ latestRelease.files["grif_openbsd_x64_arm"] }} -O grif
-                  && chmod +x ./grif && sudo ./grif upgrade</code
-                >
-              </li>
-            </ul>
-          </b-message>
-        </div>
-        <iframe
-          src="https://ghbtns.com/github-btn.html?user=grifpkg&repo=cli&type=star&count=false&size=large"
-          frameborder="0"
-          scrolling="0"
-          width="74"
-          height="30"
-          title="GitHub"
-        ></iframe>
-        <a
-          style="margin-left: 10px"
-          target="_blank"
-          href="https://www.buymeacoffee.com/happy"
-          ><img
-            width="145px"
-            src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=happy&button_colour=f5f5f5&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00"
-        /></a>
-      </div>
-    </center>
-  </div>
+    </v-container>
 </template>
 
-<script>
-import UAParser from "ua-parser-js";
-export default {
-  data: () => {
-    return {
-      selectedTab: 0,
-      selected: null,
-      latestRelease: {
-        date: null,
-        files: {},
-      },
-    };
-  },
-  watch: {
-    selectedTab() {
-      this.selected = null;
-    },
-  },
-  methods: {
-    getLatestRelease() {
-      let main = this;
-      fetch("https://api.github.com/repos/grifpkg/cli/releases/latest")
-        .then((response) => response.json())
-        .then((data) => {
-          main.latestRelease.date = new Date(data.published_at);
-          data.assets.forEach((element) => {
-            main.latestRelease.files[element.name] =
-              element.browser_download_url;
-          });
-        });
-    },
-  },
-  mounted() {
-    this.getLatestRelease();
-    const os = String(new UAParser().getResult().os.name)
-      .replace(/\s/g, "")
-      .toLowerCase();
-    switch (os) {
-      case "macos":
-        this.selectedTab = 2;
-        break;
-      case "windows":
-        this.selectedTab = 0;
-        break;
-      case "linux":
-        this.selectedTab = 1;
-        break;
-      case "openbsd":
-        this.selectedTab = 3;
-        break;
 
-      default:
-        break;
+<script>
+import cmd from "../components/CMD.vue"
+import UAParser from "ua-parser-js"
+export default {
+    components: {
+        cmd,
+    },
+    data: () => ({
+        os: null,
+        version: null,
+        arch: 'x64'
+    }),
+    async mounted() {
+        const parser = new UAParser()
+        switch (parser.getOS()?.name) {
+            case 'Windows':
+                this.os = 'windows'
+                break;
+            case 'iOS':
+            case 'MacOS':
+                this.os = 'macos'
+                break;
+            default:
+                this.os = 'linux'
+                break;
+        }
+        await this.fetchVersion()
+    },
+    methods: {
+        async fetchVersion() {
+            this.version = null
+            const res = await fetch('https://api.github.com/repos/grifpkg/cli/releases')
+            const json = await res.json()
+            this.version = json[0].tag_name
+        }
+    },
+    computed: {
+        url() {
+            return `https://github.com/grifpkg/cli/releases/download/${this.version}/grif_${this.os}_${this.arch}${this.os == 'windows' ? '.exe' : ''}`
+        },
+        steps() {
+            switch (this.os) {
+                case 'windows':
+                    return [
+                        'Open the downloaded file'
+                    ]
+                case 'macos':
+                    return [
+                        'Run the installation CMD',
+                        'If unsuccessful, allow execution from the security preferences, then, re-run the command'
+                    ]
+                default:
+                    return [
+                        'Run the installation CMD'
+                    ]
+            }
+        }
     }
-  },
-};
-</script>
-<style>
-.tab-content {
-  margin-top: 10px;
-  padding: 0px !important;
 }
-</style>
+</script>
