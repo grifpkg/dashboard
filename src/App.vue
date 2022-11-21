@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <navigation v-if="$router.currentRoute.value.path != '/'" />
+    <navigation v-if="!['/', '/login'].includes($router.currentRoute.value.path)" />
     <v-main>
       <router-view />
     </v-main>
@@ -16,7 +16,11 @@
           </p>
           <p class="mt-5">
             &copy; grifpkg {{ new Date().getFullYear() }}, limited to our
-            back-end, front-end, CLI and user generated data from grifpkg.com
+            back-end, front-end, CLI and user generated data from grifpkg.com.
+            <router-link to="/branding">Branding</router-link>,
+            <router-link to="/legal/tos">TOS</router-link>,
+            <router-link to="/legal/privacy">Privacy Policy</router-link>,
+            <router-link to="/legal/cookies">Cookie Policy</router-link>.
           </p>
         </small>
       </v-container>
