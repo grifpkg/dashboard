@@ -6,7 +6,7 @@
                 <v-btn class="mt-5 mb-10" target="_blank" href="/branding.pdf" append-icon="mdi-download">
                     Download Image PDF
                 </v-btn>
-                <v-row>
+                <v-row class="mb-5">
                     <v-col cols="6" md="">
                         <v-card class="pa-5">
                             <v-img style="margin:auto" width="64" src="/logo.svg" />
@@ -28,6 +28,7 @@
                         </v-card>
                     </v-col>
                 </v-row>
+                Designed by <a target="_blank" href="https://mobile.twitter.com/judy_houses">Judy Houses</a> <v-icon size="x-small" color="primary">mdi-heart</v-icon>
             </div>
         </v-row>
     </v-container>
