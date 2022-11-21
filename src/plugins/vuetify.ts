@@ -55,7 +55,7 @@ export default createVuetify({
       color: 'primary'
     },
     VTextField: {
-      singleLine: 1,
+      singleLine: true,
       color: 'primary',
     },
     VCard: {
