@@ -17,7 +17,7 @@
             class="mr-2"
             color="primary"
             label
-            :rounded="0"
+            size="small"
           >
             spigotmc.org
             <v-tooltip theme="light" location="bottom" activator="parent">
@@ -29,7 +29,7 @@
             color="primary"
             prepend-icon="mdi-download"
             label
-            :rounded="0"
+            size="small"
           >
             {{ downloads }}
             <v-tooltip theme="light" location="bottom" activator="parent">
@@ -40,15 +40,15 @@
             color="primary"
             prepend-icon="mdi-star"
             label
-            :rounded="0"
             class="mr-2"
+            size="small"
           >
             {{ Math.round(rating * 5 * 10) / 10 }}/5
             <v-tooltip theme="light" location="bottom" activator="parent">
               30 ratings
             </v-tooltip>
           </v-chip>
-          <v-chip color="primary" prepend-icon="mdi-clock" label :rounded="0">
+          <v-chip color="primary" prepend-icon="mdi-clock" label size="small">
             DD/MM/YY
             <v-tooltip theme="light" location="bottom" activator="parent">
               latest update
