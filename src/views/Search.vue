@@ -12,6 +12,7 @@
           :rating="Math.random()"
           :name="resource.name"
           :description="resource.description"
+          :downloads="Math.floor(Math.random()*100)"
         />
       </v-col>
     </v-row>
