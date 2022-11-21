@@ -57,7 +57,7 @@
             <v-btn-toggle style="overflow: visible" mandatory v-model="arch">
               <v-btn size="x-small" value="x32"> x32 </v-btn>
               <v-btn size="x-small" value="x64"> x64 </v-btn>
-              <v-btn size="x-small" value="arm"> ARM </v-btn>
+              <v-btn size="x-small" value="x64_arm"> ARM </v-btn>
             </v-btn-toggle>
           </template>
         </cmd>
@@ -113,7 +113,7 @@ export default {
   watch: {
     os(v) {
       if (v == "macos") {
-        this.arch = "arm";
+        this.arch = "x64_arm";
       } else {
         this.arch = "x64";
       }
