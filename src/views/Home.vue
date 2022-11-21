@@ -16,16 +16,11 @@
       <div class="mt-5">
         <v-row align="center">
           <v-col>
-            <v-btn
-              target="_blank"
-              href="https://nominal.es/discord"
-              variant="text"
-              >Join our Discord</v-btn
-            >
+            <v-btn target="_blank" href="https://nominal.es/discord" variant="text">Join our Discord</v-btn>
           </v-col>
           <v-col cols="auto">
             <!-- <v-avatar variant="tonal">?</v-avatar> -->
-            <v-btn append-icon="mdi-login-variant">Login</v-btn>
+            <v-btn to="/login" append-icon="mdi-login-variant">Login</v-btn>
           </v-col>
         </v-row>
       </div>
@@ -40,13 +35,7 @@
               <search-bar />
             </v-col>
             <template v-if="!$vuetify.display.mobile">
-              <v-col
-                cols="12"
-                md="4"
-                v-for="stat in stats"
-                :key="stat.name"
-                class="text-center"
-              >
+              <v-col cols="12" md="4" v-for="stat in stats" :key="stat.name" class="text-center">
                 <v-card class="pa-5">
                   <h1>{{ stat.count.toLocaleString() }}</h1>
                   <h3>{{ stat.name }}</h3>
@@ -54,12 +43,7 @@
               </v-col>
             </template>
             <v-col class="text-center pt-5" cols="12">
-              <v-btn
-                to="/install"
-                size="large"
-                variant="outlined"
-                append-icon="mdi-download"
-              >
+              <v-btn to="/install" size="large" variant="outlined" append-icon="mdi-download">
                 install grifpkg CLI
               </v-btn>
             </v-col>
