@@ -47,3 +47,8 @@ pre {
     padding: 3px 7px 3px 7px;
     color: rgb(var(--v-theme-primary))
 }
+
+::selection {
+    color: white;
+    background: rgba(var(--v-theme-primary),0.9);
+}
