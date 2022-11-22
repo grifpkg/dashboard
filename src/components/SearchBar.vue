@@ -6,7 +6,7 @@
         query: { q: query ? query : undefined },
       })
     "
-    autofocus
+    :autofocus="!$vuetify.display.mobile"
     append-inner-icon="mdi-magnify"
     v-model="query"
     placeholder="Search across spigotmc.org, curseforge.com and modrinth.com"
