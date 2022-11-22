@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <navigation v-if="!['/', '/login'].includes($router.currentRoute.value.path)" />
-    <v-main>
+    <v-main style="--v-layout-left:0px;transition:none">
       <router-view />
     </v-main>
     <v-footer app absolute border="t">
