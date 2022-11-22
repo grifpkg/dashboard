@@ -50,5 +50,9 @@ pre {
 
 ::selection {
     color: white;
-    background: rgba(var(--v-theme-primary),0.9);
+    background: rgba(var(--v-theme-primary), 0.9);
+}
+
+.v-overlay__scrim {
+    background-color: black;
 }
