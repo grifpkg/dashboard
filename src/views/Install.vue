@@ -54,7 +54,7 @@
           :cmd="`wget ${this.url} -O /tmp/grifpkg && chmod +x /tmp/grifpkg && sudo /tmp/grifpkg upgrade`"
         >
           <template v-slot:prepend>
-            <v-btn-toggle style="overflow: visible" mandatory v-model="arch">
+            <v-btn-toggle class="fill-height" style="overflow: visible" mandatory v-model="arch">
               <v-btn size="x-small" value="x32"> x32 </v-btn>
               <v-btn size="x-small" value="x64"> x64 </v-btn>
               <v-btn size="x-small" value="x64_arm"> ARM </v-btn>
