@@ -1,18 +1,7 @@
 <template>
-  <v-alert class="text-right" color="primary" variant="flat">
-    <v-container>
-      Manage your resources, approve or suggest download URLs for externally
-      hosted files, get detailed analytics, enable donations, get hosting deals,
-      and much more!
-    </v-container>
-  </v-alert>
+  <login-message :value="loginMessage" />
   <v-sheet border="b">
-    <v-container style="position: relative">
-      <div style="position: absolute; top: 0px; right: 50px">
-        <div>
-          <div class="arrow-down" />
-        </div>
-      </div>
+    <v-container>
       <div class="mt-5">
         <v-row align="center">
           <v-col>
@@ -76,11 +65,19 @@
 
 <script>
 import SearchBar from "@/components/SearchBar.vue";
+import LoginMessage from "@/components/LoginMessage.vue";
 export default {
   components: {
     SearchBar,
+    LoginMessage,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loginMessage = true
+    }, 5000);
   },
   data: () => ({
+    loginMessage: false,
     stats: [
       {
         name: "Resources",
@@ -118,13 +115,3 @@ export default {
   }),
 };
 </script>
-
-<style>
-.arrow-down {
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 15px solid rgb(var(--v-theme-primary));
-}
-</style>
