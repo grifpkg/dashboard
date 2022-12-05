@@ -22,12 +22,27 @@
 </template>
 
 <style>
+@keyframes updown {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
 .arrow-down {
     width: 0;
     height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-top: 15px solid rgb(var(--v-theme-primary));
+    animation: infinite 5s cubic-bezier(1, 0, 0.5, 0.5) updown;
 }
 </style>
 
