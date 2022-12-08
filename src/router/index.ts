@@ -18,6 +18,7 @@ import Payouts from "../views/settings/Payouts.vue"
 import Profiles from "../views/settings/Profiles.vue"
 import Resources from "../views/settings/Resources.vue"
 import UrlSuggestions from "../views/settings/UrlSuggestions.vue"
+import Robot from "../views/Robot.vue"
 
 const routes: RouteRecordRaw[] = [
     { path: '/', component: Home },
@@ -25,6 +26,7 @@ const routes: RouteRecordRaw[] = [
     { path: '/search', component: Search },
     { path: '/login', component: Login },
     { path: '/branding', component: Branding },
+    { path: '/robot', component: Robot },
     {
         path: '/settings/',
         component: Drawer,

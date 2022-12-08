@@ -19,6 +19,9 @@ export default createVuetify({
       ripple: false,
       hideDetails: true,
     },
+    VExpansionPanel: {
+      rounded: 0,
+    },
     VBtn: {
       color: 'primary',
       rounded: 0,

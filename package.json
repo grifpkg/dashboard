@@ -8,11 +8,13 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "apexcharts": "^3.36.3",
     "copy-to-clipboard": "^3.3.3",
     "roboto-fontface": "*",
     "ua-parser-js": "^1.0.32",
     "vue": "^3.2.38",
     "vue-router": "^4.1.6",
+    "vue3-apexcharts": "^1.4.1",
     "vuetify": "^3.0.0",
     "webfontloader": "^1.0.0"
   },

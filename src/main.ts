@@ -16,6 +16,9 @@ import { createApp } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 
+//Charts
+import VueApexCharts from "vue3-apexcharts";
+
 // Style
 import "./App.css"
 
@@ -25,5 +28,5 @@ registerPlugins(app)
 
 app
     .use(router)
-    //.use(VueClipboard)
+    .use(VueApexCharts)
     .mount('#app')
