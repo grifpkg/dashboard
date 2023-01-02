@@ -31,6 +31,10 @@ const routes = [
       { path: 'cookies', component: () => import('@/views/legal/Cookies'), meta: { icon: 'mdi-cookie' }, name: "Cookie Policy" },
     ]
   },
+  {
+    path: '/suggest/',
+    component: () => import('@/views/Suggest'),
+  },
 ]
 
 const router = createRouter({

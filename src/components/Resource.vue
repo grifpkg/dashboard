@@ -25,7 +25,7 @@
         </v-col>
         <v-col cols="auto">
           <v-chip class="mx-1" color="primary" prepend-icon="mdi-download" label size="small">
-            {{ downloads }}
+            {{ this.numAbbr.abbreviate(downloads, 0) }}
             <v-tooltip theme="light" location="bottom" activator="parent">
               0 installs
             </v-tooltip>
@@ -56,11 +56,15 @@
 </template>
 
 <script>
+import NumAbbr from 'number-abbreviate'
 import Copy from "./Copy.vue";
 export default {
   components: {
     Copy,
   },
+  data: () => ({
+    numAbbr: new NumAbbr()
+  }),
   props: ["verified", "name", "description", "rating", "downloads"],
 };
 </script>
