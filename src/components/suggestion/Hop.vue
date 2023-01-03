@@ -14,7 +14,7 @@
                         </v-list>
                     </v-menu>
                 </v-btn>
-                <v-btn color="red" icon="mdi-close" variant="tonal" height="54" />
+                <v-btn :loading="removing" @click="remove()" color="red" icon="mdi-close" variant="tonal" height="54" />
             </v-card>
         </v-col>
     </v-row>
@@ -40,8 +40,25 @@
 import SuggestionInput from './input/Input.vue';
 
 export default {
+    emits:["delete"],
     components: {
         SuggestionInput
+    },
+    data: () => ({
+        removing:false
+    }),
+    methods:{
+        async remove(){
+            this.removing=true
+            try {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                // TODO delete
+                this.$emit('delete')                
+            } catch (error) {
+                // TODO show error
+            }
+            this.removing=false
+        }
     }
 }
 </script>
