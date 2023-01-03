@@ -65,6 +65,9 @@ export default createVuetify({
       rounded: 0,
       border: true,
     },
+    VTooltip:{
+      theme:'light'
+    },
     VAppBar: {
       border: "b",
     },
