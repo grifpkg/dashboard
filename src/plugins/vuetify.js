@@ -82,7 +82,8 @@ export default createVuetify({
           accent: '#b6e3ff',
           error: '#ff1744',
           warning: '#ff8a65',
-          success: '#00e676'
+          success: '#00e676',
+          surface:'#171717'
         },
         dark: true,
       },
