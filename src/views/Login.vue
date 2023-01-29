@@ -4,17 +4,17 @@
             <div>
                 <h1>Login to grifpkg</h1>
                 <h4>Get resource analytics, developer tooling, enable donations, and much more</h4>
-                <v-sheet class="mt-10 pa-3 mb-5">
+                <v-card class="mt-10 pa-3 mb-5">
                     <p class="mb-3"><small>Login with</small></p>
                     <v-btn to="/settings" class="mt-2" block v-for="method in methods" :key="method">
                         {{ method }}
                     </v-btn>
-                </v-sheet>
+                </v-card>
                 <p class="mb-2">
                     <small>By logging in, you accept our
                         <router-link to="/legal">privacy policy</router-link>
                         and
-                        <router-link to="/legal">TOS</router-link>
+                        <router-link to="/legal">TOS</router-link>. grifpkg uses <a href="https://purecore.io">purecore.io</a>'s login system
                     </small>
                 </p>
                 <v-btn to="/" size="small" variant="plain">

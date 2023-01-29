@@ -6,7 +6,7 @@
     </h1>
     <v-card>
       <v-sheet color="black">
-        <v-tabs grow color="primary" v-model="os">
+        <v-tabs slider-color="primary" grow v-model="os">
           <v-tab value="linux">Linux</v-tab>
           <v-tab value="windows">Windows</v-tab>
           <v-tab value="macos">MacOS</v-tab>
@@ -55,9 +55,9 @@
         >
           <template v-slot:prepend>
             <v-btn-toggle class="fill-height" style="overflow: visible" mandatory v-model="arch">
-              <v-btn size="x-small" value="x32"> x32 </v-btn>
-              <v-btn size="x-small" value="x64"> x64 </v-btn>
-              <v-btn size="x-small" value="x64_arm"> ARM </v-btn>
+              <v-btn :rounded="0" size="x-small" value="x32"> x32 </v-btn>
+              <v-btn :rounded="0" size="x-small" value="x64"> x64 </v-btn>
+              <v-btn :rounded="0" size="x-small" value="x64_arm"> ARM </v-btn>
             </v-btn-toggle>
           </template>
         </cmd>

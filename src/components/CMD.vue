@@ -1,5 +1,5 @@
 <template>
-  <v-card style="overflow: visible" class="d-flex">
+  <v-card style="overflow: hidden" class="d-flex">
     <v-sheet color="primary" style="flex: 0 0 1" class="d-flex align-center">
       <copy :loading="loading" :value="cmd" />
     </v-sheet>

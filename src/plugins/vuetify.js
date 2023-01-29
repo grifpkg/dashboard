@@ -20,11 +20,11 @@ export default createVuetify({
       hideDetails: true,
     },
     VExpansionPanel: {
-      rounded: 0,
+      rounded: 10,
     },
     VBtn: {
       color: 'primary',
-      rounded: 0,
+      rounded: 10,
     },
     VAvatar: {
       rounded: 1,
@@ -33,15 +33,15 @@ export default createVuetify({
     },
     VAlert: {
       variant: 'tonal',
-      rounded: 0,
+      rounded: 10,
     },
     VBtnGroup: {
       variant: 'tonal',
       color: 'primary',
-      rounded: 0,
+      rounded: 10,
     },
     VSlider: {
-      rounded: 0,
+      rounded: 10,
       color: 'primary'
     },
     VSwitch: {
@@ -54,7 +54,7 @@ export default createVuetify({
       color: 'primary'
     },
     VProgressLinear: {
-      rounded: 0,
+      rounded: 10,
       color: 'primary'
     },
     VTextField: {
@@ -62,7 +62,7 @@ export default createVuetify({
       color: 'primary',
     },
     VCard: {
-      rounded: 0,
+      rounded: 10,
       border: true,
     },
     VTooltip:{

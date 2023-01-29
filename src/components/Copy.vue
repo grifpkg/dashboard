@@ -1,5 +1,5 @@
 <template>
-  <v-btn :loading="loading" @click="copy()" class="fill-height" icon>
+  <v-btn :rounded="0" :loading="loading" @click="copy()" class="fill-height" icon>
     <v-scroll-x-reverse-transition>
       <v-icon v-if="copied">mdi-check</v-icon>
       <v-icon v-else-if="!justCopied">mdi-content-copy</v-icon>
