@@ -102,6 +102,7 @@ export default createVuetify({
     },
   },
   theme: {
+    defaultTheme: 'dark',
     themes: {
       dark: {
         colors: {
