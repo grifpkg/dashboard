@@ -5,9 +5,46 @@
  */
 
 // https://next.vuetifyjs.com/features/sass-variables/`
-// @use 'vuetify' with (
-//   $color-pack: false
-// );
+@use 'vuetify' with ($border-radius-root: 0.3em);
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+:root {
+    --v-shadow-key-umbra-opacity: rgba(0, 0, 0, 0);
+    --v-shadow-key-penumbra-opacity: rgba(0, 0, 0, 0.05);
+}
+
+* {
+    transition-timing-function: cubic-bezier(.5, .5, 0, 1) !important;
+}
+
+.v-overlay__content,
+.v-autocomplete,
+.v-btn:not(.v-btn--variant-text, .bg-primary),
+:not(.v-field--appended)>.v-field__field {
+    @extend .border;
+
+    &:not(.v-btn--icon){
+        @extend .rounded;
+    }
+
+    &:not(.v-card, :active) {
+        @extend .elevation-2;
+    }
+}
+
+.v-overlay__content>.v-list {
+    padding: 0px;
+}
+
+.v-expansion-panels,
+.v-card {
+    @extend .rounded, .elevation-2;
+
+    &:not(.v-card--variant-tonal) {
+        @extend .border;
+    }
+}
+
 .v-ripple__container {
     visibility: hidden;
 }
@@ -16,44 +53,35 @@
     text-transform: uppercase !important;
 }
 
-* {
-    font-family: 'Sora', sans-serif !important;
-    text-transform: none !important;
-}
-
-.v-btn:active,
+:not(.v-slide-group__content)>.v-btn:active,
 .a.v-card:active,
 .v-card.active {
-    transition: 200ms;
+    transition: none;
     box-shadow: 0 0 0 0.1rem currentColor !important;
 }
 
-.v-field,
-.v-field__field {
-    border-radius: 10px !important;
-}
-
 .v-container {
-    max-width: 800px;
-}
-
-.display {
-    font-weight: 800;
-    font-size: 4em;
-    text-transform: uppercase;
+    max-width: 900px;
 }
 
 a {
     color: inherit;
 }
 
-pre {
-    font-family: 'Jetbrains Mono', monospace !important;
+.v-overlay__scrim {
     background-color: black;
-    border-radius: 50px;
-    display: inline-block;
-    padding: 3px 7px 3px 7px;
-    color: rgb(var(--v-theme-primary))
+}
+
+// ----------------
+
+*:not(.v-icon) {
+    font-family: 'Sora', sans-serif !important;
+    text-transform: none !important;
+}
+
+pre,
+.v-pagination__item {
+    font-family: 'Jetbrains Mono', monospace !important;
 }
 
 ::selection {
@@ -61,6 +89,35 @@ pre {
     background: rgba(var(--v-theme-primary), 0.9);
 }
 
-.v-overlay__scrim {
-    background-color: black;
+// ----------------
+
+
+h1.hero{
+    @media only screen and (min-width: 1000px) {
+        font-size: 4.2em;
+    }
+    @media only screen and (max-width: 1000px) {
+        font-size: 3em;
+    }
+    @media only screen and (max-width: 500px) {
+        font-size: 2.8em;
+    }
+}
+
+h2.hero{
+    @media only screen and (min-width: 1000px) {
+        font-size: 2.2em;
+    }
+    @media only screen and (max-width: 1000px) {
+        font-size: 2em;
+    }
+    @media only screen and (max-width: 500px) {
+        font-size: 1.7em;
+    }
+}
+
+.display {
+    font-weight: 800;
+    font-size: 4em;
+    text-transform: uppercase;
 }
